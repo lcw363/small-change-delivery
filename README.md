@@ -61,6 +61,12 @@ Review → Fix → Re-review
 Report verified, unverified, and Git states separately
 ```
 
+### Delivery priority
+
+Complete the smallest production-ready loop for the confirmed requirement first. The primary flow, necessary failure paths, data state, and API behavior must work together as an acceptable outcome. Authorization, data consistency, transactions, input validation, sensitive-data protection, and failure recovery must be implemented at the same time when they are inseparable from that loop.
+
+After the functional loop is complete, add routine security, boundary, and regression handling according to actual risk. Do not expand the scope, add abstractions without a clear payoff, exhaust low-probability theoretical cases, or extend the Review / Fix loop indefinitely in pursuit of absolute safety, total boundary coverage, or proof that no bug exists.
+
 ### 1. Lock the scope
 
 Confirm the requirement, acceptance criteria, non-goals, risks, verification plan, and release authorization. If a key ambiguity could change a business rule, data behavior, authorization rule, API contract, or scope, pause the affected work instead of turning an assumption into production code.
@@ -75,7 +81,7 @@ Change only the files and behavior required by the acceptance criteria. Reuse es
 
 ### 4. Verify according to risk
 
-Choose the smallest verification set that is sufficient for the change:
+First confirm that the primary flow, necessary failure paths, data state, and API behavior form an acceptable functional loop. Then choose the smallest risk-based verification set that is sufficient for the change:
 
 - Bug: prefer a regression test that reproduces the failure
 - Business rule: cover the normal path, boundaries, illegal states, and dependency failures
@@ -88,7 +94,7 @@ If an environment, credential, or fixture is unavailable, mark the result as `BL
 
 ### 5. Simplify and review
 
-Inspect the final diff and remove duplication, dead code, ineffective defenses, and over-abstraction introduced by the change. Review the fixed diff, fix every valid P0-P3 finding that belongs to the current scope, rerun affected verification, and review the new fixed point again.
+Inspect the final diff and remove duplication, dead code, ineffective defenses, and over-abstraction introduced by the change. Review the fixed diff and fix every valid, actionable P0-P3 finding that belongs to the current scope and affects acceptance or a real risk. Rerun affected verification and review the new fixed point again. Record out-of-scope, low-probability theoretical, or no-clear-benefit suggestions as residual risk instead of expanding the implementation.
 
 ### 6. Report status precisely
 
