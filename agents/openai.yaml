@@ -1,0 +1,7 @@
+interface:
+  display_name: "Small Change Delivery"
+  short_description: "中小型需求的最小实现、风险测试与 Review 修复闭环"
+  default_prompt: "使用 $small-change-delivery 完成这个已明确的中小型需求，先锁定范围，再最小实现、验证并完成 Review/Fix/Re-review。"
+
+policy:
+  allow_implicit_invocation: false
